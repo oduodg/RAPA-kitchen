@@ -47,11 +47,11 @@ export default function Comments() {
 			</div>
 			<hr className="my-2" />
 
-			<div id="commentList" className="h-48 overflow-y-scroll">
+			<div id="commentList" className="h-40 overflow-y-scroll">
 
 				{list.map((data, idx) => (
-					<div className="mx-5 mb-2 text-left" key={idx}>
-						<button className="hover:cursor-default border-[#ebebeb] text-base border rounded-md w-24 text-center mr-2 text-[#7C889C] font-semibold">{data.name}</button>
+					<div className="mx-5 mb-2 text-left text-[#7C889C]" key={idx}>
+						<button className="hover:cursor-default border-[#ebebeb] text-base border rounded-md w-24 text-center mr-2 font-semibold">{data.name}</button>
 						<button className="mr-2">{data.comment}</button>
 					</div>
 				))}
