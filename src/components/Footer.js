@@ -28,7 +28,7 @@ export default function Footer() {
 				</div>
 
 				<div className='mr-2 mt-3 text-right'>
-					<p className="text-[#253554] font-medium text-base mb-2">Kakao cloud school Dev.1th</p>
+					<p className="text-[#253554] font-medium text-base mb-2">Kakao cloud school dev.1th</p>
 					<p className="text-[#919BAB] font-medium text-sm">3-Tier container MSA Project</p>
 				</div>
 			</div>
