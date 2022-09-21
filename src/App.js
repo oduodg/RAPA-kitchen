@@ -4,7 +4,7 @@ import Cards from './components/Cards';
 import Comments from './components/Comments';
 import Footer from './components/Footer';
 import Header from './components/Header';
-import Recommend from './components/Recommend';
+import Wish from './components/Wish';
 
 
 function App() {
@@ -17,7 +17,7 @@ function App() {
       <p className='text-end mr-32 text-sm my-6 text-[#919BAB] font-semibold'> * 위 식단은 식재료 수급상황에 따라 변동될 수 있음을 양해바랍니다.</p>
       <div className='flex justify-center'>
         <Comments />
-        <Recommend />
+        <Wish />
       </div>
       <Footer />
     </div>
