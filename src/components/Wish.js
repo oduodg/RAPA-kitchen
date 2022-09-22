@@ -1,9 +1,39 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 export default function Wish() {
-	const [list, setList] = useState(["삼겹살", "고구마"]);
+	const [list, setList] = useState([]);
 	const [food, setFood] = useState("");
 	
+	const url = "https://8dba-2001-2d8-e610-f462-a87c-8255-756f-ea97.jp.ngrok.io/"; // backend server url
+
+		/**해당 날짜 wishmenu 조회 */
+		useEffect(() => {
+			const getWish = async () => {
+				try {
+					const response = await axios.get(url + "wishmenu/");
+					console.log(response.data);
+					setList(response.data);
+				} catch (e) {
+					console.error(e.message);
+				}
+			};
+			getWish();
+		}, []);
+
+		/**새로운 wishmenu POST */
+		const postWish = async () => {
+			try {
+				const response = await axios.post(url + "wishmenu/", {
+					requestMenu: food
+				});
+				console.log(food);
+				console.log(response);
+			} catch (e) {
+				console.error(e.message);
+			}
+		}
+ 
 		/**새로운 음식(Food) 입력 */
 		const onChangeFood = (e) => {
 			setFood(e.target.value);
@@ -11,10 +41,14 @@ export default function Wish() {
 
 		/**새로운 아이템 추가 */
 		const handleSubmit = () => {
-			
-			let newItem = food;
 
+			let newItem = {
+				requestMenu: food
+			}
+			
 			setList([...list, newItem]);
+			postWish();
+			
 			setFood("");
 		}
 	
@@ -30,7 +64,7 @@ export default function Wish() {
 			<div id="foodList" className="h-40 overflow-y-scroll">
 				
 				{list.map((data, idx) => (
-					<button key={idx} className="hover:cursor-default text-[#7C889C] border-[#ebebeb] text-base border rounded-3xl px-3 text-center mr-2 mb-2 font-semibold">{data}</button>
+					<button key={idx} className="hover:cursor-default text-[#7C889C] border-[#ebebeb] text-base border rounded-3xl px-3 text-center mr-2 mb-2 font-semibold">{data.requestMenu}</button>
 				))}
 
 			</div>
