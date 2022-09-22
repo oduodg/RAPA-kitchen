@@ -1,42 +1,74 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 export default function Comments() {
-	const [list, setList] = useState([
-		{
-			name: "태림",
-			comment: "엔지니어반이 반찬 다 먹었어요😤"
-		},
-		{
-			name: "춘식이🍠",
-			comment: "오늘 밥 너무 맛있어요 ><"
-		}
-	]);
+	const [list, setList] = useState([]);
 
-	const [name, setName] = useState("");
-	const [comment, setComment] = useState("");
+	const [nickName, setNickName] = useState("");
+	const [commentMenu, setCommentMenu] = useState("");
+
+
+	const url = "https://8dba-2001-2d8-e610-f462-a87c-8255-756f-ea97.jp.ngrok.io/"; // backend server url
+
+	/**해당 날짜 코멘트 조회 */
+	useEffect(() => {
+		const getComment = async () => {
+			try {
+				const response = await axios.get(url + "comment/", {
+					params: { menuId: 3 }
+				});
+				console.log(response.data);
+				setList(response.data);
+			} catch (e) {
+				console.error(e.message);
+			}
+		};
+		getComment();
+	}, []);
+
+	/**새로운 코멘트 POST */
+	const getComment = async () => {
+		try {
+			const response = await axios.post(url + "comment/", 
+			{
+				nickName: nickName,
+				commentMenu: commentMenu
+			},
+			{
+				params: { menuId: 3}
+			});
+			console.log(response);
+		} catch (e) {
+			console.error(e.message);
+		}
+	};
 
 	/**새로운 이름(name) 입력 */
 	const onChangeName = (e) => {
-		setName(e.target.value);
+		setNickName(e.target.value);
 	}
 
 	/**새로운 코멘트(comment) 입력 */
 	const onChangeComment = (e) => {
-		setComment(e.target.value);
+		setCommentMenu(e.target.value);
 	}
 
 	/**새로운 아이템(name, comment) 추가 */
 	const handleSubmit = () => {
 
 		let newItem = {
-			name: name,
-			comment: comment
+			nickName: nickName,
+			commentMenu: commentMenu
 		}
-
+		
 		setList([...list, newItem]);
-		setName("");
-		setComment("");
+		getComment();
+		
+		setNickName("");
+		setCommentMenu("");
 	}
+
+
 
 	return (
 		<div className="relative ml-28 mr-5 w-2/5 h-72 bg-[#ffffff] shadow-lg rounded-xl">
@@ -51,11 +83,11 @@ export default function Comments() {
 
 				{list.map((data, idx) => (
 					<div className="mx-5 mb-2 text-left text-[#7C889C]" key={idx}>
-						<button className="hover:cursor-default border-[#ebebeb] text-base border rounded-md w-24 text-center mr-2 font-semibold">{data.name}</button>
-						<button className="mr-2">{data.comment}</button>
+						<button className="hover:cursor-default border-[#ebebeb] text-base border rounded-md w-24 text-center mr-2 font-semibold">{data.nickName}</button>
+						<button className="mr-2">{data.commentMenu}</button>
 					</div>
 				))}
-				
+
 			</div>
 
 			<div className="absolute mx-5 bottom-4">
@@ -63,7 +95,7 @@ export default function Comments() {
 					id="name"
 					name="name"
 					placeholder="name"
-					value={name}
+					value={nickName}
 					onChange={onChangeName}
 					className="border-[#ebebeb] border rounded-md w-24 text-center mr-2"
 				/>
@@ -71,7 +103,7 @@ export default function Comments() {
 					id="comment"
 					name="comment"
 					placeholder="Type something.."
-					value={comment}
+					value={commentMenu}
 					onChange={onChangeComment}
 					className="border-[#ebebeb] border rounded-md w-80 px-2 mr-8"
 				/>
