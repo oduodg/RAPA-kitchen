@@ -27,7 +27,7 @@ export default function Comments() {
 	}, []);
 
 	/**새로운 코멘트 POST */
-	const getComment = async () => {
+	const postComment = async () => {
 		try {
 			const response = await axios.post(url + "comment/", 
 			{
@@ -62,7 +62,7 @@ export default function Comments() {
 		}
 		
 		setList([...list, newItem]);
-		getComment();
+		postComment();
 		
 		setNickName("");
 		setCommentMenu("");

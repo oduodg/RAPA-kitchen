@@ -52,8 +52,6 @@ export default function Cards() {
 				setMenu(response.data);
 			} catch (e) {
 				console.error(e.message);
-			} finally {
-				console.log("call Ajax");
 			}
 		};
 		getMenu();
