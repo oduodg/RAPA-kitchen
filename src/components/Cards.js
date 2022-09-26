@@ -41,13 +41,13 @@ export default function Cards() {
 		},
 	]);
 
-	const url = "https://8dba-2001-2d8-e610-f462-a87c-8255-756f-ea97.jp.ngrok.io/"; // backend server url
+	//const url = "https://8dba-2001-2d8-e610-f462-a87c-8255-756f-ea97.jp.ngrok.io/"; // backend server url
 
 	/**주간 메뉴 조회 */
 	useEffect(() => {
 		const getMenu = async () => {
 			try {
-				const response = await axios.get(url + "menu/");
+				const response = await axios.get("/menu");
 				console.log(response.data);
 				setMenu(response.data);
 			} catch (e) {

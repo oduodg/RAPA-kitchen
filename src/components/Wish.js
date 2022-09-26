@@ -5,13 +5,13 @@ export default function Wish() {
 	const [list, setList] = useState([]);
 	const [food, setFood] = useState("");
 	
-	const url = "https://8dba-2001-2d8-e610-f462-a87c-8255-756f-ea97.jp.ngrok.io/"; // backend server url
+	//const url = "https://8dba-2001-2d8-e610-f462-a87c-8255-756f-ea97.jp.ngrok.io/"; // backend server url
 
 		/**해당 날짜 wishmenu 조회 */
 		useEffect(() => {
 			const getWish = async () => {
 				try {
-					const response = await axios.get(url + "wishmenu/");
+					const response = await axios.get("/wishmenu");
 					console.log(response.data);
 					setList(response.data);
 				} catch (e) {
@@ -24,7 +24,7 @@ export default function Wish() {
 		/**새로운 wishmenu POST */
 		const postWish = async () => {
 			try {
-				const response = await axios.post(url + "wishmenu/", {
+				const response = await axios.post("/wishmenu", {
 					requestMenu: food
 				});
 				console.log(food);

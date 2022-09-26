@@ -8,13 +8,13 @@ export default function Comments() {
 	const [commentMenu, setCommentMenu] = useState("");
 
 
-	const url = "https://8dba-2001-2d8-e610-f462-a87c-8255-756f-ea97.jp.ngrok.io/"; // backend server url
+	//const url = "https://8dba-2001-2d8-e610-f462-a87c-8255-756f-ea97.jp.ngrok.io/"; // backend server url
 
 	/**해당 날짜 코멘트 조회 */
 	useEffect(() => {
 		const getComment = async () => {
 			try {
-				const response = await axios.get(url + "comment/", {
+				const response = await axios.get("/comment", {
 					params: { menuId: 3 }
 				});
 				console.log(response.data);
@@ -29,7 +29,7 @@ export default function Comments() {
 	/**새로운 코멘트 POST */
 	const postComment = async () => {
 		try {
-			const response = await axios.post(url + "comment/", 
+			const response = await axios.post("/comment", 
 			{
 				nickName: nickName,
 				commentMenu: commentMenu
